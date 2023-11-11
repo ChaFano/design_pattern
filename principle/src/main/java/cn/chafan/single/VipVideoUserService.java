@@ -4,7 +4,7 @@ package cn.chafan.single;
  * @Auther: 茶凡
  * @ClassName VipVideoUserService
  * @date 2023/11/11 21:41
- * @Description TODO
+ * @Description vip 用户
  */
 public class VipVideoUserService implements IVideoUserService{
     @Override
