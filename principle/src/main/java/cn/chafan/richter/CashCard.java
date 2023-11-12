@@ -13,9 +13,13 @@ import java.util.List;
  * @date 2023/11/12 23:13
  * @Description 模拟储蓄卡功能
  */
-public class CashCard {
+public class CashCard extends BankCard{
 
     private Logger log = LoggerFactory.getLogger(CashCard.class);
+
+    public CashCard(String cardNo, String cardDate) {
+        super(cardNo, cardDate);
+    }
 
     /**
      * 模拟提现
@@ -42,6 +46,11 @@ public class CashCard {
         return "0000";
     }
 
+
+    @Override
+    boolean rule(BigDecimal amount) {
+        return true;
+    }
 
     /**
      * 交易流水查询
