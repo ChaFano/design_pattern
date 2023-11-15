@@ -30,6 +30,7 @@ public class ApiTest {
 
 
 abstract class Shape {
+
     abstract void draw();
 }
 
@@ -47,6 +48,7 @@ class Rectangle extends Shape {
     }
 }
 
+// 如果有其他产品添加进来 就需要在工厂内添加 违背开闭原则
 interface ShapeFactory {
     Shape getShape(String shapeType);
 }
