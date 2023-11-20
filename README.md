@@ -266,15 +266,97 @@ Writer writer = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
 
 桥接模式实现比较复杂，实际应用也非常少，但它提供的设计思想值得借鉴，即不要过度使用继承，而是优先拆分某些部件，使用组合的方式来扩展功能。
 
+#### 组合模式
+
+将对象组合成树形结构以表示“部分-整体”的层次结构，使得用户对单个对象和组合对象的使用具有一致性。
+
+组合模式（Composite）经常用于树形结构，为了简化代码，使用Composite可以把一个叶子节点与一个父节点统一起来处理。
+
+可见，使用Composite模式时，需要先统一单个节点以及“容器”节点的接口：
+
+```css
+
+             ┌───────────┐
+             │   Node    │
+             └───────────┘
+                   ▲
+      ┌────────────┼────────────┐
+      │            │            │
+┌───────────┐┌───────────┐┌───────────┐
+│ElementNode││ TextNode  ││CommentNode│
+└───────────┘└───────────┘└───────────┘
+
+```
+作为容器节点的ElementNode又可以添加任意个Node，这样就可以构成层级结构。
+
+类似的，像文件夹和文件、GUI窗口的各种组件，都符合Composite模式的定义，因为它们的结构天生就是层级结构。
 
 
+#### 装饰器模式
+
+> 动态地给一个对象添加一些额外的职责。就增加功能来说，相比生成子类更为灵活。
+
+装饰器（Decorator）模式，是一种在运行期动态给某个对象的实例增加功能的方法。
+
+我们在IO的Filter模式一节中其实已经讲过装饰器模式了。在Java标准库中，InputStream是抽象类，FileInputStream、ServletInputStream、Socket.getInputStream()这些InputStream都是最终数据源。
+
+现在，如果要给不同的最终数据源增加缓冲功能、计算签名功能、加密解密功能，那么，3个最终数据源、3种功能一共需要9个子类。如果继续增加最终数据源，或者增加新功能，子类会爆炸式增长，这种设计方式显然是不可取的。
+
+Decorator模式的目的就是把一个一个的附加功能，用Decorator的方式给一层一层地累加到原始数据源上，最终，通过组合获得我们想要的功能。
+
+例如：给FileInputStream增加缓冲和解压缩功能，用Decorator模式写出来如下：
+```java
+
+// 创建原始的数据源:
+InputStream fis = new FileInputStream("test.gz");
+// 增加缓冲功能:
+InputStream bis = new BufferedInputStream(fis);
+// 增加解压缩功能:
+InputStream gis = new GZIPInputStream(bis);
+或者一次性写成这样：
+
+InputStream input = new GZIPInputStream( // 第二层装饰
+                        new BufferedInputStream( // 第一层装饰
+                            new FileInputStream("test.gz") // 核心功能
+                        ));
+
+```
+
+观察BufferedInputStream和GZIPInputStream，它们实际上都是从FilterInputStream继承的，这个FilterInputStream就是一个抽象的Decorator。我们用图把Decorator模式画出来如下：
+```css
+
+             ┌───────────┐
+             │ Component │
+             └───────────┘
+                   ▲
+      ┌────────────┼─────────────────┐
+      │            │                 │
+┌───────────┐┌───────────┐     ┌───────────┐
+│ComponentA ││ComponentB │...  │ Decorator │
+└───────────┘└───────────┘     └───────────┘
+                                     ▲
+                              ┌──────┴──────┐
+                              │             │
+                        ┌───────────┐ ┌───────────┐
+                        │DecoratorA │ │DecoratorB │...
+                        └───────────┘ └───────────┘
 
 
+```
+           
+最顶层的Component是接口，对应到IO的就是InputStream这个抽象类。ComponentA、ComponentB是实际的子类，
+对应到IO的就是FileInputStream、ServletInputStream这些数据源。Decorator是用于实现各个附加功能的抽象装饰器，
+对应到IO的就是FilterInputStream。而从Decorator派生的就是一个一个的装饰器，它们每个都有独立的功能，对应到IO的就是BufferedInputStream、GZIPInputStream等。
 
 
+#### 外观模式
 
+> 为子系统中的一组接口提供一个一致的界面。Facade模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。
 
+外观模式，即Facade，是一个比较简单的模式。它的基本思想如下：
 
+如果客户端要跟许多子系统打交道，那么客户端需要了解各个子系统的接口，比较麻烦。如果有一个统一的“中介”，让客户端只跟中介打交道，
+中介再去跟各个子系统打交道，对客户端来说就比较简单。所以Facade就相当于搞了一个中介。
 
 
 
