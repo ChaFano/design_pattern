@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/creator/creator.iml" filepath="$PROJECT_DIR$/creator/creator.iml" />
       <module fileurl="file://$PROJECT_DIR$/design_ pattern.iml" filepath="$PROJECT_DIR$/design_ pattern.iml" />
       <module fileurl="file://$PROJECT_DIR$/principle/principle.iml" filepath="$PROJECT_DIR$/principle/principle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/structure/structure.iml" filepath="$PROJECT_DIR$/structure/structure.iml" />
     </modules>
   </component>
 </project>

@@ -171,3 +171,105 @@ String[] copy = Arrays.copyOf(original, original.length);
   * 如果原型对象过于复杂，则可能会导致内存消耗过大；
   * 如果原型对象被频繁地修改，则可能会导致系统性能下降；
   * 如果不正确地管理原型对象，则可能会导致系统出现错误。
+  
+### 结构型模式
+
+结构型模式主要涉及如何组合各种对象以便获得更好、更灵活的结构。虽然面向对象的继承机制提供了最基本的子类扩展父类的功能，但结构型模式不仅仅简单地使用继承，而更多地通过组合与运行期的动态组合来实现更灵活的功能。
+
+结构型模式有：
+
+适配器、桥接、组合、装饰器、外观、享元、代理
+
+#### 适配器模式
+将一个类的接口转换成客户希望的另外一个接口，使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。
+
+适配器模式是Adapter，也称Wrapper，是指如果一个接口需要B接口，但是待传入的对象却是A接口，怎么办？
+
+我们举个例子。空调的插头接口是16V，要大一些，如果我们想给手机充电我们就需要一个适配器来转换一下。
+
+
+Java IO 流中的适配器模式的一个典型例子是 InputStreamReader 和 OutputStreamWriter。这两个类都是适配器类，可以将字符流适配成字节流，或者将字节流适配成字符流。
+
+例如，如果你有一个 InputStream，但你需要一个 Reader，你可以使用 InputStreamReader 作为适配器：
+
+```java
+InputStream inputStream = new FileInputStream("file.txt");  
+Reader reader = new InputStreamReader(inputStream);
+同样地，如果你有一个 Reader，但你需要一个 OutputStream，你可以使用 OutputStreamWriter 作为适配器：
+```
+```java
+Reader reader = new FileReader("file.txt");  
+OutputStream outputStream = new FileOutputStream("output.txt");  
+Writer writer = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
+```
+在这个例子中，InputStreamReader 和 OutputStreamWriter 都是适配器模式的使用者，它们将不兼容的接口适配成了需要的接口。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
